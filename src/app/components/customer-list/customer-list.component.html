@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Customers List</h1>
+  <!-- It won't show if there is no student data -->
+  <a routerLink="/add-customer" class="btn btn-success" *ngIf="hideWhenNoData">
+    <i class="fas fa-plus custom-fa-plus"></i>
+    Add Customer
+  </a>
+</div>
+
+<div class="pricing-header mx-auto">
+
+  <!-- Preloader shows before the data loads-->
+  <div class="no-data text-center" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No student">
+  </div>
+
+  <!-- No data shows when their is no student data available -->
+  <div class="no-data text-center" *ngIf="noData">
+    <p class="nodata-msg">No data yet!</p>
+    <a routerLink="/add-customer" class="btn btn-success">
+      <i class="fas fa-plus custom-fa-plus"></i>
+      Add Customer
+    </a>
+  </div>
+
+  <!-- Showing students data -->
+  <div class="table-responsive" *ngIf="hideWhenNoData">
+    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">name</th>
+          <th scope="col">Email</th>
+          <th scope="col">ContactNo</th>
+          <th class="text-center" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of Customers; let i = index;">
+          <th scope="row">{{customer.$key}}</th>
+          <td>{{customer.name}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.contactno}}</td>
+          <td class="text-center action-block">
+            <i class="far fa-edit" style="cursor: pointer;" routerLink="/edit-customer/{{customer.$key}}"></i>
+            &nbsp;|&nbsp;
+            <i class="far fa-trash-alt" style="cursor: pointer;" (click)="delete(customer)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

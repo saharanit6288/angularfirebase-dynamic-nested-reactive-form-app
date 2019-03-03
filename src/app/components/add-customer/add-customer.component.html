@@ -1,0 +1,75 @@
+<div class="pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Add Customer</h1>
+</div>
+
+<!-- Student form -->
+<form [formGroup]="myForm" (ngSubmit)="save()" novalidate>
+  <div class="row">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="row">
+
+        <div class="col-md-12 mb-3">
+          <label>Name</label>
+          <input type="text" formControlName="name" class="form-control" required>
+          <!-- Showing errors using getter method -->
+          <p *ngIf="myForm.controls.name.touched && myForm.controls.name.invalid" class="text-danger">
+            <sup>*</sup>Name is required (minimum 5 characters).
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Email</label>
+          <input type="email" formControlName="email" class="form-control" required>
+          <!-- Showing errors using getter method -->
+          <p *ngIf="myForm.controls.email.touched && myForm.controls.email.invalid" class="text-danger"><sup>*</sup>Please provide email</p>
+          <p *ngIf="myForm.controls.email.touched && myForm.controls.email.errors?.pattern" class="text-danger"><sup>*</sup>Please enter correct email</p>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label>Mobile number</label>
+          <input type="text" formControlName="contactno" class="form-control" required>
+          <!-- Showing errors using getter method -->
+          <p *ngIf="myForm.controls.contactno.touched && myForm.controls.contactno.invalid" class="text-danger"><sup>*</sup>Please provide contact number</p>
+          <p *ngIf="myForm.controls.contactno.touched && myForm.controls.contactno.errors?.pattern" class="text-danger"><sup>*</sup>Use only numbers</p>
+        </div>
+
+      </div>
+
+       <!-- list of addresses -->
+      <div formArrayName="addresses" class="row">
+        <div *ngFor="let address of myForm.controls.addresses.controls; let i=index" class="col-md-12 mb-3">
+          <div class="card">
+            <!-- address header, show remove button when more than one address available -->
+            <div class="card-header">
+                <span>Address {{i + 1}}</span>
+                <i class="fas fa-times float-right"
+                  *ngIf="myForm.controls.addresses.controls.length > 1" 
+                  (click)="removeAddress(i)">
+                </i>
+            </div>
+
+            <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+            <div class="card-body" [formGroupName]="i">
+              <app-customer-address [group]="myForm.controls.addresses.controls[i]"></app-customer-address>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-20">
+        <a (click)="addAddress()" style="cursor: default">
+          Add another address +
+        </a>
+      </div>
+
+      <div class="form-group text-right">
+        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</form>

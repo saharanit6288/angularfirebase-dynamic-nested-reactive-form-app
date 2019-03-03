@@ -1,0 +1,20 @@
+<div [formGroup]="addressForm">
+  <div class="form-group col-xs-6">
+      <label>street</label>
+      <input type="text" class="form-control" formControlName="street">
+      <small *ngIf="addressForm.controls.street.touched && addressForm.controls.street.invalid" class="text-danger">
+        <sup>*</sup>Street is required
+      </small>
+  </div>
+  <div class="form-group col-xs-6">
+      <label>city</label>
+      <input type="text" class="form-control" formControlName="city">
+      <small *ngIf="addressForm.controls.city.touched && addressForm.controls.city.invalid" class="text-danger">
+        <sup>*</sup>City is required
+      </small>
+  </div>
+  <div class="form-group col-xs-6">
+      <label>postcode</label>
+      <input type="text" class="form-control" formControlName="postcode">
+  </div>
+</div>
