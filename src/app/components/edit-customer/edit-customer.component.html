@@ -47,7 +47,7 @@
 
        <!-- list of addresses -->
       <div formArrayName="addresses" class="row">
-        <div *ngFor="let address of editForm.controls.addresses.controls; let i=index" class="col-md-12 mb-3">
+        <div *ngFor="let address of editForm.controls.addresses['controls']; let i=index" class="col-md-12 mb-3">
           <div class="card">
             <!-- address header, show remove button when more than one address available -->
             <div class="card-header">
@@ -73,7 +73,7 @@
       </div>
 
       <div class="form-group text-right">
-        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Submit</button>
+        <button type="submit" class="btn btn-success" [disabled]="!editForm.valid">Submit</button>
       </div>
 
     </div>
